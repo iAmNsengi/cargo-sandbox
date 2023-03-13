@@ -12,6 +12,7 @@ import { validateLogin } from "../middlewares/validateRequest.js";
 const router = express.Router();
 
 router.post("/login", validateLogin, login);
+
 router.post("/forgotPassword", forgotPassword);
 router.patch("/resetPassword/:token", resetPassword);
 

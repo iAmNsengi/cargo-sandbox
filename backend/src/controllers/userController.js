@@ -37,10 +37,10 @@ export const createUser = catchAsync(async (req, res, next) => {
   const { email, firstName, lastName, role, trainingSite, participantNumber } =
     req.body;
 
-  // Generate a default password (you might want to send this via email)
+  // Generate a default password
   const defaultPassword = `${firstName.toLowerCase()}${Date.now()}`;
 
-  // 1. Create the user
+  // 1. Create the user using the User model
   const user = await User.create({
     email,
     password: defaultPassword,

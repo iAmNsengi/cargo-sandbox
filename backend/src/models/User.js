@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
       minLength: [8, "Password must be at least 8 characters"],
-      select: false, // Don't return password in queries
+      select: false,
     },
     firstName: {
       type: String,
@@ -60,7 +60,7 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// we check password
+// Compare password method
 userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
@@ -81,6 +81,6 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
 userSchema.index({ role: 1 });
 userSchema.index({ active: 1 });
 
-const User = mongoose.model("User", userSchema);
+const User = new mongoose.model("User", userSchema);
 
 export default User;
