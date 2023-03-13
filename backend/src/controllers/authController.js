@@ -13,6 +13,8 @@ export const login = catchAsync(async (req, res, next) => {
   if (!user || !(await user.comparePassword(password)))
     return next(new AppError("Incorrect email or password", 401));
 
+  user.password = undefined;
+
   createSendToken(user, 200, res);
 });
 
