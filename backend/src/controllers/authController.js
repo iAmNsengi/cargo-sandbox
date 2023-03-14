@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import AppError from "../utils/appError.js";
 import { createSendToken } from "../utils/jwt.js";
 import catchAsync from "../utils/catchAsync.js";
+import crypto from "crypto";
 
 export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
@@ -95,7 +96,27 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
 });
 
 export const resetPassword = catchAsync(async (req, res, next) => {
-  // Implementation for password reset
+  // get user from the token
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
+
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: Date.now() },
+  });
+
+  // check if token has expired or there is no user with the token
+  if (!user) return next(new AppError("Token is invalid or has expired", 400));
+
+  user.password = req.body.password;
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+
+  await user.save();
+
+  createSendToken(user, 200, res);
 });
 
 export const updatePassword = catchAsync(async (req, res, next) => {
