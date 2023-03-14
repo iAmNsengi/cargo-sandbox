@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import validator from "validator";
+import crypto from "crypto";
 
 const userSchema = new mongoose.Schema(
   {
@@ -75,6 +76,22 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
     return JWTTimestamp < changedTimestamp;
   }
   return false;
+};
+
+// create password reset token
+userSchema.methods.createPasswordResetToken = function () {
+  // a random reset token
+  const resetToken = crypto.randomBytes(32).toString("hex");
+  this.passwordResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  // set token expiration to 10 minutes from now
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+  // return the unhashed token (to be sent to user's email)
+  return resetToken;
 };
 
 // Add indexes for frequently queried fields
