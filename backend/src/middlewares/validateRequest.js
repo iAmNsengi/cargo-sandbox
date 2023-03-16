@@ -28,6 +28,8 @@ export const validateSignup = [
 
 export const validateLogin = [
   body("email")
+    .notEmpty()
+    .withMessage("Email field is required")
     .isEmail()
     .withMessage("Please provide a valid email")
     .normalizeEmail(),

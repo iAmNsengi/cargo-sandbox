@@ -7,6 +7,9 @@ import crypto from "crypto";
 import { validationResult } from "express-validator";
 
 export const login = catchAsync(async (req, res, next) => {
+  // validate the request
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return next(new AppError(errors.array()[0].msg), 400);
   const { email, password } = req.body;
 
   // Check if user exists && password is correct
