@@ -9,6 +9,8 @@ export const signToken = (id) => {
 export const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
 
+  user.password = undefined;
+
   res.status(statusCode).json({
     status: "success",
     token,

@@ -78,3 +78,12 @@ export const validateUpdateUser = [
     .isIn(["trainee", "coach", "admin"])
     .withMessage("Invalid role"),
 ];
+
+export const validateUpdatePassword = [
+  body("currentPassword").notEmpty().withMessage("currentPassword is required"),
+  body("newPassword")
+    .notEmpty()
+    .withMessage("newPassword is required")
+    .isLength(8)
+    .withMessage("Password must be at least 8 characters long."),
+];

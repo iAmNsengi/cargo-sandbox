@@ -7,7 +7,10 @@ import {
   protect,
   restrictTo,
 } from "../controllers/authController.js";
-import { validateLogin } from "../middlewares/validateRequest.js";
+import {
+  validateLogin,
+  validateUpdatePassword,
+} from "../middlewares/validateRequest.js";
 
 const router = express.Router();
 
@@ -19,7 +22,7 @@ router.patch("/resetPassword/:token", resetPassword);
 // Protect all routes after this middleware
 router.use(protect);
 
-router.patch("/updateMyPassword", updatePassword);
+router.patch("/updateMyPassword", validateUpdatePassword, updatePassword);
 
 // Restrict to admin
 router.use(restrictTo("admin"));

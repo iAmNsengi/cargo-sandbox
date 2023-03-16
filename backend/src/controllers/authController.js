@@ -4,6 +4,7 @@ import AppError from "../utils/appError.js";
 import { createSendToken } from "../utils/jwt.js";
 import catchAsync from "../utils/catchAsync.js";
 import crypto from "crypto";
+import { validationResult } from "express-validator";
 
 export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
@@ -120,5 +121,20 @@ export const resetPassword = catchAsync(async (req, res, next) => {
 });
 
 export const updatePassword = catchAsync(async (req, res, next) => {
-  // Implementation for password update
+  // check validation errors
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return next(new AppError(errors.array()[0].msg), 400);
+
+  const { currentPassword, newPassword } = req.body;
+
+  const user = await User.findById(req.user.id).select("+password");
+
+  // compare passwords and check if its correct
+  if (!(await user.comparePassword(currentPassword)))
+    return next(new AppError("Current password is wrong", 401));
+
+  user.password = newPassword;
+  await user.save();
+
+  createSendToken(user, 200, res);
 });
