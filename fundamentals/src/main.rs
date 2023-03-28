@@ -1,7 +1,8 @@
+use std::io;
 fn main() {
-    let my_name = "NSengi";
-    let my_data = [1,2 ,3 ,4];
-    println!("Hello, world! ");
-    println!("I am {}, a dev", my_name.to_lowercase());
-    println!("Data {my_data:?}")
+  println!("Hey what's your name?");
+  let mut name = String::new();
+
+  io::stdin().read_line(&mut name);
+println!("Welcome {}, to our app.", name.trim())
 }
