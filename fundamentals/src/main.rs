@@ -13,13 +13,13 @@ loop{
     let mut guess = String::new();
     let correct_num  = rand::rng().random_range(1..=10);
 
-    io::stdin().read_line(&mut guess).expect("Error in reading input");
+    io::stdin().read_line(&mut guess).expect("Error in reading input"); // why???
    
     println!("You guessed {}.", guess.trim());
 
     let guess:u32 = match guess.trim().parse() {
         Ok(num) => num,
-        Err(e) => {
+        _ => {
             println!("Invalid number try again \n");
             continue;
         }
