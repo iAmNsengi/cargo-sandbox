@@ -19,9 +19,16 @@ const gaterInterviewSchema = new mongoose.Schema(
         required: true,
       },
     ],
+    theoreticalAssessment: [
+      {
+        question: String,
+        score: { type: Number, min: 1, max: 5, default: 1 },
+        comments: String,
+      },
+    ],
     technicalAssessment: {
       algorithmicThinking: {
-        score: { type: Number, min: 1, max: 5 },
+        score: { type: Number, min: 1, max: 5, default: 1 },
         comments: String,
       },
       problemSolving: {
@@ -37,16 +44,7 @@ const gaterInterviewSchema = new mongoose.Schema(
         comments: String,
       },
     },
-    softSkillsAssessment: {
-      communication: {
-        score: { type: Number, min: 1, max: 5 },
-        comments: String,
-      },
-      professionalism: {
-        score: { type: Number, min: 1, max: 5 },
-        comments: String,
-      },
-    },
+
     overallFeedback: String,
     recommendations: String,
   },
