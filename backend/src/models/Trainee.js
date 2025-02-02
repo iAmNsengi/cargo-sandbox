@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const traineeSchema = new mongoose.Schema(
   {
@@ -23,6 +23,11 @@ const traineeSchema = new mongoose.Schema(
     gateInterviews: [
       { type: mongoose.Schema.Types.ObjectId, ref: "GateInterview" },
     ],
+    status: {
+      type: String,
+      enum: ["active", "dropped", "graduated", "on_probation"],
+      default: "active",
+    },
   },
   { timestamps: true }
 );
