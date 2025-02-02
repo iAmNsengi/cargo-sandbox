@@ -60,12 +60,12 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// check passowrd
+// we check passowrd
 userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// Add method to check if password was changed after token was issued
+// method to check if password was changed after token was issued
 userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(
@@ -76,6 +76,11 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   }
   return false;
 };
+
+// Add indexes for frequently queried fields
+userSchema.index({ email: 1 }, { unique: true });
+userSchema.index({ role: 1 });
+userSchema.index({ active: 1 });
 
 const User = mongoose.model("User", userSchema);
 

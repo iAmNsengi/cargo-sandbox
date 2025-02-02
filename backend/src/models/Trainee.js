@@ -35,6 +35,13 @@ const traineeSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Add indexes for common queries and relationships
+traineeSchema.index({ userId: 1 }, { unique: true });
+traineeSchema.index({ trainingSite: 1 });
+traineeSchema.index({ participantNumber: 1 }, { unique: true });
+traineeSchema.index({ status: 1 });
+traineeSchema.index({ githubUsername: 1 }, { sparse: true });
+
 const Trainee = new mongoose.model("Trainee", traineeSchema);
 
 export default Trainee;
