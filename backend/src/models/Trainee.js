@@ -7,6 +7,7 @@ const traineeSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    participantNumber: { type: String, required: true },
     cohort: {
       type: String,
       required: true,
