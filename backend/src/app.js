@@ -16,8 +16,12 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import AppError from "./utils/appError.js";
+import connectDB from "./config/database.js";
 
 dotenv.config();
+
+// Connect to MongoDB
+connectDB();
 
 const app = express();
 
