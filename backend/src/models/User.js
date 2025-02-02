@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema(
         values: ["trainee", "coach", "admin"],
         message: "{VALUE} is not a valid role",
       },
-      default: "trainee",
+      default: "coach",
     },
     active: {
       type: Boolean,

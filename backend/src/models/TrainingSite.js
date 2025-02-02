@@ -13,6 +13,9 @@ const trainingSiteSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+trainingSiteSchema.index({ title: 1 }, { unique: true });
+trainingSiteSchema.index({ status: 1 });
+trainingSiteSchema.index({ siteManager: 1 });
 
 const TrainingSite = new mongoose.model("TrainingSite", trainingSiteSchema);
 
