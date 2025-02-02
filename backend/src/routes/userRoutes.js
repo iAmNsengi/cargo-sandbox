@@ -9,6 +9,10 @@ import {
   uploadUserFile,
 } from "../controllers/userController.js";
 import { protect, restrictTo } from "../controllers/authController.js";
+import {
+  validateCreateUser,
+  validateUpdateUser,
+} from "../middleware/validateRequest.js";
 
 const router = express.Router();
 
@@ -17,10 +21,14 @@ router.use(protect);
 // Restrict to admin
 router.use(restrictTo("admin"));
 
-router.route("/").get(getUsers).post(createUser);
+router.route("/").get(getUsers).post(validateCreateUser, createUser);
 
 router.post("/bulk", uploadUserFile, bulkCreateUsers);
 
-router.route("/:id").get(getUser).patch(updateUser).delete(deactivateUser);
+router
+  .route("/:id")
+  .get(getUser)
+  .patch(validateUpdateUser, updateUser)
+  .delete(deactivateUser);
 
 export default router;
