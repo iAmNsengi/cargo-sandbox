@@ -7,6 +7,11 @@ const gaterInterviewSchema = new mongoose.Schema(
       ref: "Trainee",
       required: true,
     },
+    gate: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Gate",
+      required: true,
+    },
     interviewers: [
       {
         type: mongoose.Schema.Types.ObjectId,
