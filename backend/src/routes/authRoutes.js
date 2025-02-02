@@ -1,6 +1,5 @@
 import express from "express";
 import {
-  signup,
   login,
   forgotPassword,
   resetPassword,

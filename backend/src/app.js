@@ -8,11 +8,16 @@ import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import compression from "compression";
 import morgan from "morgan";
+import dotenv from "dotenv";
 
 import corsOptions from "./config/corsOptions.js";
 import { limiter } from "./config/rateLimit.js";
-import { errorHandler } from "./middleware/errorHandler.js";
-import { logger } from "./middleware/logger.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
+import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import AppError from "./utils/appError.js";
+
+dotenv.config();
 
 const app = express();
 
@@ -21,9 +26,6 @@ app.use(helmet());
 
 // Development logging
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
-
-// Request logging
-app.use(logger);
 
 // CORS configuration
 app.use(cors(corsOptions));
@@ -54,11 +56,22 @@ app.use(compression());
 
 // Routes
 app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/gates", gateRoutes);
-app.use("/api/v1/trainees", traineeRoutes);
+// app.use("/api/v1/gates", gateRoutes);
+// app.use("/api/v1/trainees", traineeRoutes);
 app.use("/api/v1/users", userRoutes);
+
+// Handle undefined routes
+app.all("*", (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
 
 // Error handling
 app.use(errorHandler);
+
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 
 export default app;

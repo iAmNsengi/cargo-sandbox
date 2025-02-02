@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import AppError from "../utils/appError.js";
 import { createSendToken } from "../utils/jwt.js";
-import { catchAsync } from "../utils/catchAsync.js";
+import catchAsync from "../utils/catchAsync.js";
 
 export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;

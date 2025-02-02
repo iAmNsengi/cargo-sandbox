@@ -12,7 +12,7 @@ import { protect, restrictTo } from "../controllers/authController.js";
 import {
   validateCreateUser,
   validateUpdateUser,
-} from "../middleware/validateRequest.js";
+} from "../middlewares/validateRequest.js";
 
 const router = express.Router();
 
