@@ -20,9 +20,7 @@ const app = express();
 app.use(helmet());
 
 // Development logging
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
+if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 
 // Request logging
 app.use(logger);
