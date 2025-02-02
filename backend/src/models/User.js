@@ -1,37 +1,82 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import validator from "validator";
 
-const userSChema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
-      required: true,
+      required: [true, "Email is required"],
       unique: true,
       lowercase: true,
       trim: true,
+      validate: [validator.isEmail, "Please provide a valid email"],
     },
-    password: { type: String, required: true, minLength: 8 },
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    role: { type: String, enum: ["trainee", "coach", "admin"] },
-    default: "trainee",
-    active: { type: Boolean, default: true },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+      minLength: [8, "Password must be at least 8 characters"],
+      select: false, // Don't return password in queries
+    },
+    firstName: {
+      type: String,
+      required: [true, "First name is required"],
+      trim: true,
+      maxLength: [50, "First name cannot exceed 50 characters"],
+    },
+    lastName: {
+      type: String,
+      required: [true, "Last name is required"],
+      trim: true,
+      maxLength: [50, "Last name cannot exceed 50 characters"],
+    },
+    role: {
+      type: String,
+      enum: {
+        values: ["trainee", "coach", "admin"],
+        message: "{VALUE} is not a valid role",
+      },
+      default: "trainee",
+    },
+    active: {
+      type: Boolean,
+      default: true,
+    },
+    passwordChangedAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 );
 
 // hash the password before saving
-userSChema.pre("save", async function (next) {
+userSchema.pre("save", async function (next) {
   if (!this.isModified) return next();
   this.password = await bcrypt.hash(this.password, 12);
   next();
 });
 
 // check passowrd
-userSChema.methods.comparePassword = async function (candidatePassword) {
+userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-const User = new mongoose.model("User", userSChema);
+// Add method to check if password was changed after token was issued
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+    return JWTTimestamp < changedTimestamp;
+  }
+  return false;
+};
+
+const User = mongoose.model("User", userSchema);
 
 export default User;

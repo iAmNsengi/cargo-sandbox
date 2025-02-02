@@ -6,6 +6,7 @@ const gateQuestionSchema = new mongoose.Schema(
     theoryQuestions: [{ type: String, required: true }],
     practicalQuestions: [{ type: String }],
     round: { type: Number, default: 1 },
+    status: { type: String, enum: ["open", "closed"] },
   },
   { timestamps }
 );
