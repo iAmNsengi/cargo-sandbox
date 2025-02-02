@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import { promisify } from "util";
 import User from "../models/User";
 
 export const protect = async (req, res, next) => {
@@ -30,4 +29,16 @@ export const protect = async (req, res, next) => {
       .status(401)
       .json({ status: "fail", message: "Unauthorized, invalid token" });
   }
+};
+
+export const restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role))
+      return res.status(403).json({
+        status: "fail",
+        message:
+          "Unauthorized, You don't have permission to perform this action",
+      });
+    next();
+  };
 };
