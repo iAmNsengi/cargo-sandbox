@@ -1,10 +1,10 @@
 {
   "name": "thegym",
   "version": "1.0.0",
-  "main": "./backend/src/app.js",
+  "main": "./backend/app.js",
   "type": "module",
   "scripts": {
-    "server": "nodemon backend/src/app.js"
+    "server": "nodemon backend/app.js"
   },
   "repository": {
     "type": "git",

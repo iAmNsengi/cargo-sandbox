@@ -4,19 +4,18 @@ import mongoSanitize from "express-mongo-sanitize";
 import xss from "xss-clean";
 import hpp from "hpp";
 import cors from "cors";
-import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import compression from "compression";
 import morgan from "morgan";
 import dotenv from "dotenv";
 
-import corsOptions from "./config/corsOptions.js";
-import { limiter } from "./config/rateLimit.js";
-import { errorHandler } from "./middlewares/errorHandler.js";
-import authRoutes from "./routes/authRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
-import AppError from "./utils/appError.js";
-import connectDB from "./config/database.js";
+import corsOptions from "./src/config/corsOptions.js";
+import { limiter } from "./src/config/rateLimit.js";
+import { errorHandler } from "./src/middlewares/errorHandler.js";
+import authRoutes from "./src/routes/authRoutes.js";
+import userRoutes from "./src/routes/userRoutes.js";
+import AppError from "./src/utils/appError.js";
+import connectDB from "./src/config/database.js";
 
 dotenv.config();
 
