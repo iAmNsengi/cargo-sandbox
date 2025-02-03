@@ -21,7 +21,7 @@ router.use(protect);
 // Restrict to admin
 router.use(restrictTo("admin"));
 
-router.route("/").get(getUsers).post(validateCreateUser, createUser);
+router.route("/").get(getUsers).post(createUser);
 
 router.post("/bulk", uploadUserFile, bulkCreateUsers);
 

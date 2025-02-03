@@ -38,10 +38,17 @@ export const validateLogin = [
 
 export const validateCreateUser = [
   body("email")
+    .notEmpty()
+    .withMessage("Email field is required")
     .isEmail()
     .withMessage("Please provide a valid email")
     .normalizeEmail(),
-  body("firstName").notEmpty().withMessage("Please provide first name").trim(),
+  body("firstName")
+    .notEmpty()
+    .withMessage("Please provide first name")
+    .isLength({ min: 3 })
+    .withMessage("Minimum length for first name is 3 characters")
+    .trim(),
   body("lastName").notEmpty().withMessage("Please provide last name").trim(),
   body("role")
     .notEmpty()
