@@ -11,9 +11,11 @@ import {
   validateLogin,
   validateUpdatePassword,
 } from "../middlewares/validateRequest.js";
+import { authLimiter } from "../config/rateLimit.js";
 
 const router = express.Router();
 
+router.use("/login", authLimiter);
 router.post("/login", validateLogin, login);
 
 router.post("/forgotPassword", forgotPassword);
