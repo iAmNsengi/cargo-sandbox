@@ -43,6 +43,7 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    profilePicture: String,
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,

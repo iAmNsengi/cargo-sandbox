@@ -65,7 +65,7 @@ export const createUser = catchAsync(async (req, res, next) => {
       data: {
         user,
         trainee,
-        defaultPassword, // In production, send this via email instead
+        defaultPassword, // send via email 
       },
     });
   }
@@ -74,7 +74,7 @@ export const createUser = catchAsync(async (req, res, next) => {
     status: "success",
     data: {
       user,
-      defaultPassword, // In production, send this via email instead
+      defaultPassword, // send via email 
     },
   });
 });
