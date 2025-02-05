@@ -5,6 +5,7 @@ import catchAsync from "../utils/catchAsync.js";
 import csv from "csv-parser";
 import fs from "fs";
 import multer from "multer";
+import redis from "../config/redis.js";
 
 // Multer configuration for file upload
 const storage = multer.diskStorage({
@@ -65,7 +66,7 @@ export const createUser = catchAsync(async (req, res, next) => {
       data: {
         user,
         trainee,
-        defaultPassword, // send via email 
+        defaultPassword, // send via email
       },
     });
   }
@@ -74,7 +75,7 @@ export const createUser = catchAsync(async (req, res, next) => {
     status: "success",
     data: {
       user,
-      defaultPassword, // send via email 
+      defaultPassword, // send via email
     },
   });
 });
@@ -179,11 +180,24 @@ export const getUsers = catchAsync(async (req, res, next) => {
 
 // Get single user
 export const getUser = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.params.id).select("-password");
+  const cachedUser = await redis.get(`user:${req?.user?._id}`);
+  if (cachedUser)
+    return res.status(200).json({
+      status: "success",
+      data: { user: JSON.parse(cachedUser) },
+    });
+
+  // if user not in cache, we get them from DB
+  const user = await User.findById(req.params.id)
+    .select("firstName lastName email role active profilePicture")
+    .lean();
 
   if (!user) {
     return next(new AppError("No user found with that ID", 404));
   }
+
+  // cache the result for future requests
+  await redis.setEx(`user:${req?.user?._id}`, 3600, JSON.stringify(user));
 
   res.status(200).json({
     status: "success",

@@ -19,7 +19,7 @@ const router = express.Router();
 // Protect all routes
 router.use(protect);
 // Restrict to admin
-router.use(restrictTo("admin"));
+router.use(restrictTo("admin", "coach"));
 
 router.route("/").get(getUsers).post(createUser);
 
