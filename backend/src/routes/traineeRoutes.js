@@ -6,7 +6,7 @@ const router = express.Router();
 router.use(protect);
 router.use(restrictTo("coach", "admin"));
 
-router.route("/").get(getAllTrainees).post(createTrainee);
+router.route("/").get(getAllTrainees);
 
 router
   .route(":/id")

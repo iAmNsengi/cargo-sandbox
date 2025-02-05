@@ -104,7 +104,9 @@ export const bulkCreateUsers = catchAsync(async (req, res, next) => {
             }
 
             // Generate default password
-            const defaultPassword = `${row.firstName.toLowerCase()}${Date.now()}`;
+            const defaultPassword = `${row.firstName.toLowerCase()}${Math.floor(
+              Math.random() * 1000
+            )}`;
 
             // Create user
             const user = await User.create({
