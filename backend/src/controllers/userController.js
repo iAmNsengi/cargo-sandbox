@@ -194,9 +194,7 @@ export const getUser = catchAsync(async (req, res, next) => {
     .select("firstName lastName email role active profilePicture")
     .lean();
 
-  if (!user) {
-    return next(new AppError("No user found with that ID", 404));
-  }
+  if (!user) return next(new AppError("No user found with that ID", 404));
 
   // cache the result for future requests
   await redis.setEx(`user:${req?.user?._id}`, 3600, JSON.stringify(user));
@@ -217,9 +215,7 @@ export const updateUser = catchAsync(async (req, res, next) => {
     runValidators: true,
   }).select("-password");
 
-  if (!user) {
-    return next(new AppError("No user found with that ID", 404));
-  }
+  if (!user) return next(new AppError("No user found with that ID", 404));
 
   res.status(200).json({
     status: "success",
