@@ -13,7 +13,10 @@ println!("{}",add_five(x));
 
 println!("{x:?}");
 
-    loop {
+   'repeat_loop: loop {
+       let random_num : u32 = rand::rng().random_range(0..=10);
+
+       
         let mut number = String::new();
         println!("Enter any number: ");
         io::stdin().read_line(&mut number).expect("Error reading number from user");
@@ -25,13 +28,13 @@ println!("{x:?}");
                 return;
     }
 };
-let random_num : u32 = rand::rng().random_range(0..=10);
 
 if parsed_number == random_num {
     println!("Congratulations you won!");
     break;
 }else {
-    println!("Sorry you lost!, correct number was: {}.",random_num)
+    println!("Sorry you lost!, correct number was: {}.",random_num);
+    continue 
 }
 }
 }
