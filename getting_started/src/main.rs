@@ -3,6 +3,12 @@ use rand::Rng;
 
 
 fn main() {
+ let x ={ 
+    let y = 32; 
+    y
+};
+
+println!("{x:?}");
     loop {
         let mut number = String::new();
         println!("Enter any number: ");
