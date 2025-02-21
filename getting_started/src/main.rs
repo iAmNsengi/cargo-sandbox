@@ -8,7 +8,11 @@ fn main() {
     y
 };
 
+
+println!("{}",add_five(x));
+
 println!("{x:?}");
+
     loop {
         let mut number = String::new();
         println!("Enter any number: ");
@@ -30,4 +34,11 @@ if parsed_number == random_num {
     println!("Sorry you lost!, correct number was: {}.",random_num)
 }
 }
+}
+
+
+fn add_five(num: i32) -> i32{
+    println!("Good");
+    num + 5
+
 }
