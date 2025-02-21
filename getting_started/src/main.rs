@@ -13,7 +13,10 @@ println!("{}",add_five(x));
 
 println!("{x:?}");
 
-   'repeat_loop: loop {
+let fh = celicius_to_fahrenheit(39.0);
+println!("Value to fahrenheit is {}", fh);
+
+   loop {
        let random_num : u32 = rand::rng().random_range(0..=10);
 
        
@@ -44,4 +47,8 @@ fn add_five(num: i32) -> i32{
     println!("Good");
     num + 5
 
+}
+
+fn celicius_to_fahrenheit(c:f32) -> f32{
+    (c- 32.0 ) * (5.0/9.0)
 }
