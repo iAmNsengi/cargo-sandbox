@@ -1,12 +1,27 @@
 use std::io;
 use rand::Rng;
 
+#[derive(Debug)]
+struct User{
+    name :String,
+    email: String,
+    password: String,
+    is_active : bool
 
+
+}
 fn main() {
  let x ={ 
     let y = 32; 
     y
 };
+
+let user = User{ name: String::from("Eliezer Nsengi"), email: String::from("test@mail.com"), password:String::from("my_password"), is_active: true
+};
+ println!("Username: {:?}", user.name);
+ println!("email: {:?}", user.email);
+ println!("password: {:?}", user.password);
+ println!("is_active: {:?}", user.is_active);
 
 
 println!("{}",add_five(x));
@@ -19,7 +34,6 @@ println!("Value to fahrenheit is {}", fh);
    loop {
        let random_num : u32 = rand::rng().random_range(0..=10);
 
-       
         let mut number = String::new();
         println!("Enter any number: ");
         io::stdin().read_line(&mut number).expect("Error reading number from user");
@@ -37,16 +51,14 @@ if parsed_number == random_num {
     break;
 }else {
     println!("Sorry you lost!, correct number was: {}.",random_num);
-    continue 
+    continue;
 }
 }
 }
-
 
 fn add_five(num: i32) -> i32{
     println!("Good");
     num + 5
-
 }
 
 fn celicius_to_fahrenheit(c:f32) -> f32{
