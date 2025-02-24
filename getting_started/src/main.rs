@@ -24,6 +24,9 @@ let user = User{ name: String::from("Eliezer Nsengi"), email: String::from("test
  println!("is_active: {:?}", user.is_active);
 
 
+
+let user2 = User{ email: String::from("iamnsengi"), ..user};
+println!("Details of user 2 {:?}", user2);
 println!("{}",add_five(x));
 
 println!("{x:?}");
