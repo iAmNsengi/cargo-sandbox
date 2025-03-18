@@ -8,5 +8,8 @@ pub fn run(){
     println!("{} is from {}", "Nsengi","Kigali");
 
     //positional arguments
-    println!("{0} is from {1} and {0} likes to {2}", "Nsengi","Kigali","Code")
+    println!("{0} is from {1} and {0} likes to {2}", "Nsengi","Kigali","Code");
+
+    // named arguments
+    println!("{name} likes to play {activity}", name="Nsengi", activity="Piano");
 }
