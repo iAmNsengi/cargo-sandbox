@@ -12,4 +12,8 @@ pub fn run(){
 
     // named arguments
     println!("{name} likes to play {activity}", name="Nsengi", activity="Piano");
+
+
+    // placeholder traints
+    println!("Binary '{:b}', Hexadecimal '{:x}' Octal '{:o}'", 10,10,10)
 }
