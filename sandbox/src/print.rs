@@ -6,4 +6,7 @@ pub fn run(){
     // formatting
     println!("A number: {}", 1);
     println!("{} is from {}", "Nsengi","Kigali");
+
+    //positional arguments
+    println!("{0} is from {1} and {0} likes to {2}", "Nsengi","Kigali","Code")
 }
