@@ -1,5 +1,10 @@
 mod is_even;
 
 fn main() {
-    is_even::run();
+    let num = 11;
+    if is_even::is_even(num) {
+        println!("Number {num} is even ");
+    } else {
+        println!("Number {num} is not even ");
+    }
 }
