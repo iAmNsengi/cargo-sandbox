@@ -1,3 +1,4 @@
+mod fibonacci;
 mod is_even;
 
 fn main() {
@@ -7,4 +8,9 @@ fn main() {
     } else {
         println!("Number {num} is not even ");
     }
+
+    println!(
+        "Fibonacci of numbers to {num} is {:?} ",
+        fibonacci::fibonacci(num)
+    )
 }
