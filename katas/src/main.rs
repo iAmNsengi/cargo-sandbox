@@ -1,5 +1,6 @@
 mod fibonacci;
 mod is_even;
+mod string_length;
 
 fn main() {
     let num = 11;
@@ -12,5 +13,10 @@ fn main() {
     println!(
         "Fibonacci of numbers to {num} is {:?} ",
         fibonacci::fibonacci(num)
+    );
+
+    println!(
+        "Get length of a string: {}",
+        string_length::get_string_length("iAmNsengi")
     )
 }
