@@ -1,3 +1,5 @@
+use std::collections::btree_map::Values;
+
 mod fibonacci;
 mod is_even;
 mod string_length;
@@ -67,7 +69,13 @@ fn main() {
     );
 
     let cirle = Shape::Circle(4.5);
-    println!("Area of the circle is :{:?}", calculate_area(cirle))
+    println!("Area of the circle is :{:?}", calculate_area(cirle));
+
+    let index = find_index(String::from("iamnsengi"), 'n');
+    match index {
+        Some(value) => println!("Index found at {value}"),
+        None => println!("Index not found"),
+    }
 }
 
 fn calculate_area(shape: Shape) -> f64 {
@@ -75,4 +83,13 @@ fn calculate_area(shape: Shape) -> f64 {
         Shape::Circle(r) => r * r * 3.14,
         Shape::Rectangle(a, b) => a * b,
     }
+}
+
+fn find_index(str: String, character: char) -> Option<i32> {
+    for (index, char) in str.chars().enumerate() {
+        if char == character {
+            return Some(index as i32);
+        }
+    }
+    return None;
 }
