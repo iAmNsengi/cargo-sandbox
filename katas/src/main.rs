@@ -9,6 +9,17 @@ pub struct User {
     sign_in_count: i32,
 }
 
+struct Rect {
+    width: i32,
+    height: i32,
+}
+
+impl Rect {
+    fn area(&self) -> i32 {
+        self.width * self.height
+    }
+}
+
 fn main() {
     let num = 11;
     if is_even::is_even(num) {
@@ -38,4 +49,15 @@ fn main() {
     println!("User password {:?}", user.password);
     println!("User email {:?}", user.email);
     println!("User sign in count {:?}", user.sign_in_count);
+
+    let rect1 = Rect {
+        width: 12,
+        height: 32,
+    };
+    println!(
+        "The area of the rectangle is with width {} and height {} is {}",
+        rect1.width,
+        rect1.height,
+        rect1.area()
+    )
 }
