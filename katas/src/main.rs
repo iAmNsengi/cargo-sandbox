@@ -20,6 +20,11 @@ impl Rect {
     }
 }
 
+enum Shape {
+    Rectangle(f64, f64),
+    Circle(f64),
+}
+
 fn main() {
     let num = 11;
     if is_even::is_even(num) {
@@ -59,5 +64,16 @@ fn main() {
         rect1.width,
         rect1.height,
         rect1.area()
-    )
+    );
+
+    let cirle = Shape::Circle(4.5);
+    println!("Area of the circle is :{:?}", calculate_area(cirle))
+}
+
+fn calculate_area(shape: Shape) -> f64 {
+    let area = match shape {
+        Shape::Circle(a) => a * 3.14,
+        Shape::Rectangle(a, b) => a * b,
+    };
+    return area;
 }
