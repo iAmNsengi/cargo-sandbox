@@ -1,4 +1,4 @@
-use std::collections::btree_map::Values;
+use std::fs;
 
 mod fibonacci;
 mod is_even;
@@ -75,6 +75,12 @@ fn main() {
     match index {
         Some(value) => println!("Index found at {value}"),
         None => println!("Index not found"),
+    }
+
+    let file = fs::read_to_string("src/is_even.rs");
+    match file {
+        Ok(content) => println!("File conent: {}", content),
+        Err(err) => println!("An error occuredd: {}", err),
     }
 }
 
