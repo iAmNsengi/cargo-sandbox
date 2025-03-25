@@ -43,7 +43,7 @@ fn main() {
         string_length::get_string_length("iAmNsengi")
     );
 
-    let user = User {
+    let user: User = User {
         username: String::from("nsengi"),
         password: String::from("nsengi"),
         email: String::from("nsengi"),
@@ -71,9 +71,8 @@ fn main() {
 }
 
 fn calculate_area(shape: Shape) -> f64 {
-    let area = match shape {
-        Shape::Circle(a) => a * 3.14,
+    match shape {
+        Shape::Circle(r) => r * r * 3.14,
         Shape::Rectangle(a, b) => a * b,
-    };
-    return area;
+    }
 }
