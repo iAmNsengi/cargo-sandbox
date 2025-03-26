@@ -1,3 +1,4 @@
+use chrono::{Date, Local, Utc};
 use std::fs;
 
 mod fibonacci;
@@ -82,6 +83,7 @@ fn main() {
         Ok(content) => println!("File conent: {}", content),
         Err(err) => println!("An error occuredd: {}", err),
     }
+    println!("The time now is {}", Local::now())
 }
 
 fn calculate_area(shape: Shape) -> f64 {
