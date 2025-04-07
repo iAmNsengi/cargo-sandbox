@@ -4,6 +4,7 @@ use std::fs;
 mod fibonacci;
 mod is_even;
 mod string_length;
+mod even_vector;
 
 pub struct User {
     username: String,
@@ -29,6 +30,8 @@ enum Shape {
 }
 
 fn main() {
+    let vec = Vec::from([1,2,4,5,6]);
+    println!("{:?}",even_vector::get_even_from_vector(vec));
     let num = 11;
     if is_even::is_even(num) {
         println!("Number {num} is even ");
