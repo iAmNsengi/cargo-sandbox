@@ -31,6 +31,7 @@ enum Shape {
 }
 
 fn main() {
+    hash_maps::filter_odd_double();
     hash_maps::render_hash_map();
     let mut vec = Vec::from([1,2,4,5,6]);
     even_vector::get_even_from_vector(&mut vec);

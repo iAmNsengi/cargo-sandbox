@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, iter::Sum, };
 
 pub fn render_hash_map(){
     let mut users= HashMap::new();
@@ -26,4 +26,20 @@ pub fn iterate_on_array (){
     while let Some(i) = v1.iter_mut().next(){
         println!("{i}")
     }
+
+
+    let v2 = vec![1,2,3];
+    for item in &v2{
+        println!("{}",item)
+    }
+
+    let sum : i32= v2.iter().sum();
+    println!("{sum}");
+}
+
+
+pub fn filter_odd_double(){
+    let vec = vec![1,2,3,4,5,6,7,8,9,10];
+    let new_vec : Vec<i32>= vec.iter().filter(|item| *item %2 !=0).map(|item| *item *2).collect();
+    println!("{:?}", new_vec)
 }
