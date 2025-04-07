@@ -5,6 +5,7 @@ mod fibonacci;
 mod is_even;
 mod string_length;
 mod even_vector;
+mod hash_maps;
 
 pub struct User {
     username: String,
@@ -30,6 +31,7 @@ enum Shape {
 }
 
 fn main() {
+    hash_maps::render_hash_map();
     let mut vec = Vec::from([1,2,4,5,6]);
     even_vector::get_even_from_vector(&mut vec);
     println!("{:?}",vec);
